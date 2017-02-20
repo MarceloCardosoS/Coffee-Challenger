@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html ng-app="coffeChallenge">
+<head>
+    <meta charset="UTF-8">
+    <title>Coffe Challenge</title>
+    <link rel="icon" href="imagens/coffee.png">
+    <link href="angular-bootstrap/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+		.jumbotron {
+			width: 400px;
+			text-align: center;
+			margin-top: 20px;
+			margin-left: auto;
+			margin-right: auto;
+            background-color: transparent;
+		}
+		h4 {
+			margin-bottom: 30px;
+		}
+		.table {
+			margin-top: 20px;
+		}
+		.form-control {
+			margin-bottom: 5px;
+		}
+    </style>
+    <script src="angular-bootstrap/angular/angular.js"></script>
+
+    <script>
+        angular.module("coffeChallenge", []);
+        angular.module("coffeChallenge").controller("coffeChallengeCrtl", function($scope){
+            $scope.app = "Coffe Challenger";
+            $scope.nomes = [
+                {nome: "marcelo"}
+            ];
+            $scope.dias = [
+                {nome: "segunda-manha", codigo: "1"},
+                {nome: "segunda-tarde", codigo: "2"},
+                {nome: "terça-manha", codigo: "3"},
+                {nome: "terça-tarde", codigo: "4"},
+                {nome: "quarta-manha", codigo: "5"},
+                {nome: "quarta-tarde", codigo: "6"},
+                {nome: "quinta-manha", codigo: "7"},
+                {nome: "quinta-tarde", codigo: "8"},
+                {nome: "sexta-manha", codigo: "9"},
+                {nome: "sexta-tarde", codigo: "0"},
+            ];
+            $scope.numTurno = function () {
+                var num = Math.floor( (Math.random() * 10 ));
+                $scope.dias = dias.filter(function(num){
+                    if(num == dias.codigo){
+                        return nome;
+                    };
+                });
+            };
+            $scope.adicionarNome = function(nome) {
+                $scope.nomes.push(angular.copy(nome));
+                delete $scope.nome;
+            };
+            $scope.excluirNomes = function(nomes) {
+                $scope.nomes = nomes.filter(function (nome) {
+					if (!nome.selecionado) return nome;
+				});
+            };
+            $scope.isNomeSelecionado = function (nomes) {
+				return nomes.some(function (nome) {
+					return nome.selecionado;
+				});
+			};
+        });
+    </script>
+</head>
+<body ng-controller="coffeChallengeCrtl" background="imagens/cafe.jpg">
+    <div class="jumbotron">
+        <h4>{{app}}</h4>       
+        <form name="nomeForm">
+            <input class="form-control" type="text" ng-model="nome.nome" name="nome" placeholder="Nome" ng-required="true" ng-minlength="1" ng-maxlength="3"/>
+        </form>
+
+        <button class="btn btn-primary btn-block" ng-click="adicionarNome(nome)" ng-disabled="nomeForm.$invalid">Adicionar Nome</button>
+        <button class="btn btn-danger btn-block" ng-click="excluirNomes(nomes)" ng-if="isNomeSelecionado(nomes)">Excluir Nome</button>
+        
+        <table class="table" ng-show="nomes.length > 0">
+            <tr>
+                <th>Nome</th>
+            </tr>
+            <tr ng-repeat="nome in nomes">
+                <td><input type="checkbox" ng-model="nome.selecionado"/></td>
+                <td>{{nome.nome}}</td>
+                <td>{{numTurno()}}</td>
+            </tr>
+            <!--<tr ng-repeat="nome in dias">
+                <td>{{nome.nome}} {{nome.codigo}}</td>
+            </tr>--> 
+        </table>
+        <hr/>
+    
+        <!--<button class="btn btn-success btn-block" ng-click="numTurno()">Sorteio</button>-->
+    </div>
+
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="angular-bootstrap/bootstrap/js/bootstrap.min.js"></script>    
+</body>
+</html>
