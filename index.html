@@ -45,13 +45,16 @@
                 {nome: "sexta-manha", codigo: "9"},
                 {nome: "sexta-tarde", codigo: "0"},
             ];
-            $scope.numTurno = function () {
-                var num = Math.floor( (Math.random() * 10 ));
-                $scope.dias = dias.filter(function(num){
-                    if(num == dias.codigo){
-                        return nome;
-                    };
-                });
+            $scope.numTurno = function (nomes) {
+                countName = count.nomes;
+                for(var x = 0; x = countName; x++){
+                    var num = Math.floor( (Math.random() * 10 ));
+                    $scope.dias = dias.filter(function(num){
+                        if(num == dias.codigo){
+                            return nome;
+                        };
+                    });
+                }
             };
             $scope.adicionarNome = function(nome) {
                 $scope.nomes.push(angular.copy(nome));
@@ -95,7 +98,7 @@
         </table>
         <hr/>
     
-        <!--<button class="btn btn-success btn-block" ng-click="numTurno()">Sorteio</button>-->
+        <button class="btn btn-success btn-block" ng-click="numTurno(nomes)">Sorteio</button>
     </div>
 
     
